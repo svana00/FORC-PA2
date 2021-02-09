@@ -4,10 +4,13 @@ using namespace std;
 class Word
 {
 public:
-    Word(int height, int stamina, int strength);
+    Word(char *wordList, int wordLength);
 
+    char *wordList;
+    int wordLength;
     //void add_item(char *name, double bonus);
-    void add_item();
+    void show_scrambled_word();
+    void scramble_word();
 
 private:
     int height;

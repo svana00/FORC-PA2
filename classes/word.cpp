@@ -3,15 +3,16 @@
 
 using namespace std;
 
-Word::Word(int height, int stamina, int strength)
+Word::Word(char *wordList, int wordLength)
 {
-    this->height = height;
-    this->stamina = stamina;
-    this->strength = strength;
-
-    item_count = 0;
+    this->wordList = wordList;
+    this->wordLength = wordLength;
 }
 
-void Word::add_item()
+void Word::scramble_word()
+{
+}
+
+void Word::show_scrambled_word()
 {
 }

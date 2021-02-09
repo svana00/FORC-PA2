@@ -16,14 +16,6 @@ char *pick_word_from_list(char **wordsList)
     return wordsList[randWord];
 }
 
-void scramble_word()
-{
-}
-
-void show_scrambled_word()
-{
-}
-
 void guess_word()
 {
 }
