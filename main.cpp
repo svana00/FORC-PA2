@@ -1,10 +1,16 @@
 #include <iostream>
 #include <fstream>
+#include <stdlib.h>
 
 using namespace std;
 
-void pick_word_from_list(wordsList)
+int maxWordLength = 20;
+int numOfWords = 25936;
+
+char* pick_word_from_list(char* wordsList)
 {
+    int randWord = rand() % numOfWords;
+    return &wordsList[randWord]; 
 }
 
 void scramble_word()
@@ -22,9 +28,6 @@ void guess_word()
 int main()
 {
     // Create array
-    int maxWordLength, numOfWords;
-    maxWordLength = 20;
-    numOfWords = 25936;
     char wordsList[numOfWords][maxWordLength];
 
     ifstream fin;
