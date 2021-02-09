@@ -22,13 +22,13 @@ void guess_word()
 int main()
 {
     // Create array
-    int arrayLength = 20 * 25936;
-    char allWordsArray[arrayLength];
+    int maxWordLength, numOfWords; 
+    maxWordLength = 20;
+    numOfWords = 25936;
+    char allWordsArray[numOfWords][maxWordLength];
 
     ifstream fin;
     fin.open("word_list.fic", ios::binary);
-
-    fin.read(allWordsArray, arrayLength);
 
     cout << allWordsArray << endl;
 
