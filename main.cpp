@@ -7,10 +7,13 @@ using namespace std;
 int maxWordLength = 20;
 int numOfWords = 25936;
 
-char* pick_word_from_list(char* wordsList)
+char *pick_word_from_list(char **wordsList)
 {
+    // Picks a random word from the list of words and returns a pointer to the
+    // first letter of the word
+    srand(time(NULL));
     int randWord = rand() % numOfWords;
-    return &wordsList[randWord]; 
+    return wordsList[randWord];
 }
 
 void scramble_word()
@@ -28,26 +31,31 @@ void guess_word()
 int main()
 {
     // Create array
-    char wordsList[numOfWords][maxWordLength];
+    char *charList = new char[numOfWords * maxWordLength];
+    char **wordsList = new char *[numOfWords];
 
     ifstream fin;
     fin.open("word_list.fic", ios::binary);
 
+    int counter = 0;
     for (int i = 0; i < numOfWords; i++)
     {
-        int counter = 1;
-        fin.read(&wordsList[i][0], 1);
-
-        while (wordsList[i][counter - 1] != '\n')
+        wordsList[i] = &charList[counter];
+        fin.read(&charList[counter++], 1);
+        while (charList[counter - 1] != '\n')
         {
-            fin.read(&wordsList[i][counter], 1);
-            counter++;
+            fin.read(&charList[counter++], 1);
         }
-
-        wordsList[i][counter - 1] = 0;
+        charList[counter - 1] = 0;
         cout << wordsList[i] << endl;
     }
 
     fin.close();
+
+    char *word = pick_word_from_list(wordsList);
+    cout << word << endl;
+
+    delete[] charList;
+    delete[] wordsList;
     return 0;
 }
