@@ -3,7 +3,7 @@
 
 using namespace std;
 
-void pick_word_from_file()
+void pick_word_from_list(wordsList)
 {
 }
 
@@ -25,7 +25,7 @@ int main()
     int maxWordLength, numOfWords;
     maxWordLength = 20;
     numOfWords = 25936;
-    char allWordsArray[numOfWords][maxWordLength];
+    char wordsList[numOfWords][maxWordLength];
 
     ifstream fin;
     fin.open("word_list.fic", ios::binary);
@@ -33,18 +33,18 @@ int main()
     for (int i = 0; i < numOfWords; i++)
     {
         int counter = 1;
-        fin.read(&allWordsArray[i][0], 1);
+        fin.read(&wordsList[i][0], 1);
 
-        while (allWordsArray[i][counter - 1] != '\n')
+        while (wordsList[i][counter - 1] != '\n')
         {
-            fin.read(&allWordsArray[i][counter], 1);
+            fin.read(&wordsList[i][counter], 1);
             counter++;
         }
 
-        allWordsArray[i][counter - 1] = 0;
-        cout << allWordsArray[i] << endl;
+        wordsList[i][counter - 1] = 0;
+        cout << wordsList[i] << endl;
     }
 
-        fin.close();
+    fin.close();
     return 0;
 }
