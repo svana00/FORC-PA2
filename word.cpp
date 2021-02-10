@@ -1,5 +1,6 @@
 
 #include "word.h"
+#include <stdlib.h>
 
 using namespace std;
 
@@ -8,12 +9,15 @@ Word::Word(char *wordList, int wordLength)
     this->wordLength = wordLength;
     this->word = new char[wordLength];
     this->scrambled = new char[wordLength];
+    this->hintWord = new char[wordLength];
+    this->hintCounter = 0;
 
     // Fill the word and scrambled lists
     for (int i = 0; i < wordLength; i++)
     {
         this->word[i] = wordList[i];
         this->scrambled[i] = wordList[i];
+        this->hintWord[i] = '-';
     }
 
     scramble_word();
@@ -29,6 +33,11 @@ char *Word::get_scrambled()
     return this->scrambled;
 }
 
+char *Word::get_word_with_hints()
+{
+    return this->hintWord;
+}
+
 bool Word::compare_guess(char *guess)
 {
     for (int i = 0; i < wordLength; i++)
@@ -39,6 +48,23 @@ bool Word::compare_guess(char *guess)
         }
     }
     return true;
+}
+
+void Word::show_hint()
+{
+    srand(time(NULL));
+
+    if (this->wordLength != this->hintCounter)
+    {
+        int index = rand() % this->wordLength;
+        while (this->hintWord[index] != '-')
+        {
+            index = rand() % this->wordLength;
+        }
+
+        this->hintWord[index] = this->word[index];
+    }
+    hintCounter++;
 }
 
 void Word::scramble_word()

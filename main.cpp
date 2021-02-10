@@ -2,6 +2,7 @@
 #include <fstream>
 #include <stdlib.h>
 #include "word.h"
+#include "game.h"
 
 using namespace std;
 
@@ -15,10 +16,6 @@ char *pick_word_from_list(char **wordsList)
     srand(time(NULL));
     int randWord = rand() % numOfWords;
     return wordsList[randWord];
-}
-
-void guess_word()
-{
 }
 
 int main()
@@ -46,51 +43,99 @@ int main()
 
     fin.close();
 
-    char *word = pick_word_from_list(wordsList);
+    // Create the current game
+    Game *game;
+    game = new Game();
 
-    // Find length of word
-    int wordLength = 0;
+    bool wordGuessed = false;
+    bool gameOver = false;
 
-    while (word[wordLength] != 0)
+    cout << "\n------------------- HANGMAN ------------------- \nThe rules are simple. You have 10 hints in total and can guess as many words as \nyou want before there are no hints left.\nYour total score is how many words you can guess.\n"
+         << endl;
+
+    while (gameOver != true)
     {
-        wordLength++;
-    }
+        wordGuessed = false;
+        gameOver = false;
 
-    // Create word class and test it
-    Word *classWord;
-    classWord = new Word(word, wordLength);
-    char *originalWord = classWord->get_word();
-    char *scrambledWord = classWord->get_scrambled();
-    cout << "Actual word: " << originalWord << endl;
-    cout << "Scrambled word: " << scrambledWord << endl;
+        char *word = pick_word_from_list(wordsList);
 
-    char choice = 'y';
-    char *guess = new char[maxWordLength];
+        // Find length of word
+        int wordLength = 0;
 
-    while (choice == 'y')
-    {
-        cout << "Guess word: ";
-        cin >> guess;
-        cout << guess << endl;
-        if (classWord->compare_guess(guess))
+        while (word[wordLength] != 0)
         {
-            cout << "You guessed correct!" << endl;
-            choice = 'n';
+            wordLength++;
         }
-        else
+
+        // Create word class and test it
+        Word *classWord;
+        classWord = new Word(word, wordLength);
+        char *originalWord = classWord->get_word();
+        char *scrambledWord = classWord->get_scrambled();
+
+        char continueGame = 'y';
+        char choice;
+        char *guess = new char[maxWordLength];
+
+        while (!gameOver && game->getPoints() != 0 && !wordGuessed)
         {
-            cout << "You guessed wrong!" << endl;
-            cout << "Want to try again (y/n)? ";
+            // Print inital instructions
+            cout << "Your scrambled word: " << scrambledWord << "\n"
+                 << endl;
+
+            cout << "Guess word (g)\nHint (h)\nQuit game (q)\n\nEnter choice: ";
             cin >> choice;
+
+            if (choice == 'h')
+            {
+                classWord->show_hint();
+                char *hintedWord = classWord->get_word_with_hints();
+                cout << "\nWord with hints: " << hintedWord << endl;
+                game->remove_point();
+                cout << "Points left: " << game->getPoints() << endl;
+
+                // If user has used up guesses, game is over
+                if (game->getPoints() == 0)
+                {
+                    cout << "\nGame over!" << endl;
+                    cout << "You managed to guess " << game->getWordsGuessed() << " word/s\n"
+                         << endl;
+                    gameOver = true;
+                }
+            }
+
+            else if (choice == 'g')
+            {
+                cout << "Guess word: ";
+                cin >> guess;
+                cout << "\n";
+
+                if (classWord->compare_guess(guess))
+                {
+                    cout << "You guessed correct!" << endl;
+                    game->word_guessed();
+                    wordGuessed = true;
+                }
+                else
+                {
+                    cout << "Wrong guess! " << endl;
+                }
+            }
+            else
+            {
+                gameOver = true;
+            }
         }
+
+        // Delete all pointers
+        delete classWord;
+        delete originalWord;
+        delete scrambledWord;
+        delete[] guess;
     }
 
-    // Delete all pointers
-    delete classWord;
-    delete originalWord;
-    delete scrambledWord;
     delete[] charList;
-    delete[] guess;
     delete[] wordsList;
     return 0;
 }
