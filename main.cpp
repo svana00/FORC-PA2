@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <stdlib.h>
+#include "word.h"
 
 using namespace std;
 
@@ -39,15 +40,57 @@ int main()
             fin.read(&charList[counter++], 1);
         }
         charList[counter - 1] = 0;
-        cout << wordsList[i] << endl;
     }
+
+    fin.read(&charList[counter++], 1);
 
     fin.close();
 
     char *word = pick_word_from_list(wordsList);
-    cout << word << endl;
 
+    // Find length of word
+    int wordLength = 0;
+
+    while (word[wordLength] != 0)
+    {
+        wordLength++;
+    }
+
+    // Create word class and test it
+    Word *classWord;
+    classWord = new Word(word, wordLength);
+    char *originalWord = classWord->get_word();
+    char *scrambledWord = classWord->get_scrambled();
+    cout << "Actual word: " << originalWord << endl;
+    cout << "Scrambled word: " << scrambledWord << endl;
+
+    char choice = 'y';
+    char *guess = new char[maxWordLength];
+
+    while (choice == 'y')
+    {
+        cout << "Guess word: ";
+        cin >> guess;
+        cout << guess << endl;
+        if (classWord->compare_guess(guess))
+        {
+            cout << "You guessed correct!" << endl;
+            choice = 'n';
+        }
+        else
+        {
+            cout << "You guessed wrong!" << endl;
+            cout << "Want to try again (y/n)? ";
+            cin >> choice;
+        }
+    }
+
+    // Delete all pointers
+    delete classWord;
+    delete originalWord;
+    delete scrambledWord;
     delete[] charList;
+    delete[] guess;
     delete[] wordsList;
     return 0;
 }
