@@ -13,4 +13,5 @@ private:
     int guessedWords;
     int hints;
     double totalScore;
+    
 };

@@ -170,19 +170,13 @@ int main()
                     classHighscores[highScoreCounter++] = hs;
                 }
 
-                // for (int i = 0; i < highScoreCounter; i++)
-                // {
-                //     cout << classHighscores[i]->getScore() << endl;
-                // }
-                
-                // cout << "--------------------" << endl;
                 // Sort the list
                 sort(classHighscores, classHighscores + highScoreCounter, sort_high_scores);
                 for (int i = 0; i < highScoreCounter; i++)
                 {
                     cout << classHighscores[i]->getScore() << endl;
                 }
-                // highScores.close();
+                highScores.close();
 
                 // Delete all pointers 
                 delete[] initials;
@@ -202,6 +196,7 @@ int main()
             {
                 cout << "Unkown command, try again!" << endl;
             }
+
         }
 
         delete classWord;
