@@ -3,9 +3,6 @@
 #include <stdlib.h>
 #include "word.h"
 #include "game.h"
-#include <time.h> /* clock_t, clock, CLOCKS_PER_SEC */
-#include <ctime>
-#include <ratio>
 #include <chrono>
 
 using namespace std;
@@ -94,7 +91,7 @@ int main()
                  << endl;
 
             cout << "You have " << game->getHintsLeft() - 1 << " hints left!" << endl;
-            cout << "Guess word (g)\nHint (h)\nQuit game (q)\n\nEnter choice: ";
+            cout << "Guess word (g)\nHint (h)\nSee highscores (s)\nQuit game (q)\n\nEnter choice: ";
             cin >> choice;
 
             if (choice == 'h')
@@ -127,12 +124,16 @@ int main()
                     auto t2 = high_resolution_clock::now();
                     auto duration = duration_cast<seconds>(t2 - t1).count();
 
-                    game->addToScore((double) duration/10);
+                    game->addToScore((double)duration / 10);
                 }
                 else
                 {
                     cout << "Wrong guess! " << endl;
                 }
+            }
+
+            else if (choice == 's')
+            {
             }
 
             else if (choice == 'q')
@@ -148,15 +149,28 @@ int main()
                 cout << "Unkown command, try again!" << endl;
             }
         }
-        
+
         // Delete all pointers
         delete classWord;
         delete originalWord;
         delete scrambledWord;
         delete[] guess;
     }
-    game->addToScore(game->getWordsGuessed()*50);
-    cout << "Your total score is: " << game->getTotalScore() << endl;
+
+    game->addToScore(game->getWordsGuessed() * 50);
+    cout << "Your total score is: " << game->getTotalScore() << "\n"
+         << endl;
+
+    // Add to highscores
+    ofstream fout;
+    fout.open("high_scores.txt", fstream::app);
+
+    char initials[5];
+    cout << "Enter your initals to record your score: ";
+    cin >> initials;
+    fout << initials << ',' << game->getTotalScore() << endl;
+
+    fout.close();
 
     delete game;
     delete[] charList;
