@@ -93,7 +93,7 @@ int main()
             cout << "Word with hints: " << hintedWord << "\n"
                  << endl;
 
-            cout << "You have " << game->getHintsLeft() << " hints left!" << endl;
+            cout << "You have " << game->getHintsLeft() - 1 << " hints left!" << endl;
             cout << "Guess word (g)\nHint (h)\nQuit game (q)\n\nEnter choice: ";
             cin >> choice;
 
