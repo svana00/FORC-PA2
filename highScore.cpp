@@ -5,8 +5,13 @@ using namespace std;
 
 HighScore::HighScore(char *initials, double score)
 {
-    this->initials = initials;
+    this->initialsArr = new char[6];
     this->score = score;
+
+    for (int i = 0; i < 6; i++)
+    {
+        this->initialsArr[i] = initials[i];
+    }
 }
 
 double HighScore::getScore()
@@ -16,5 +21,6 @@ double HighScore::getScore()
 
 char *HighScore::getInitials()
 {
-    return this->initials;
+    cout << this->initialsArr << endl;
+    return this->initialsArr;
 }

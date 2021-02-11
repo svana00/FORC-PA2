@@ -9,6 +9,6 @@ public:
     double getScore();
 
 private:
-    char* initials;
+    char* initialsArr;
     double score;
 };
