@@ -28,3 +28,13 @@ void Game::word_guessed()
 {
     this->guessedWords++;
 }
+
+void Game::addToScore(double points)
+{
+    this->totalScore += points;
+}
+
+double Game::getTotalScore()
+{
+    return this->totalScore;
+}
