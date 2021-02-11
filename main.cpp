@@ -85,7 +85,7 @@ int main()
 
         auto t1 = high_resolution_clock::now();
 
-        while (!gameOver && game->getPoints() != 0 && !wordGuessed)
+        while (!gameOver && game->getHintsLeft() != 0 && !wordGuessed)
         {
             // Print inital instructions
             cout << "\nYour scrambled word: " << scrambledWord << endl;
@@ -93,17 +93,17 @@ int main()
             cout << "Word with hints: " << hintedWord << "\n"
                  << endl;
 
-            cout << "You have " << game->getPoints() << " hints left!" << endl;
+            cout << "You have " << game->getHintsLeft() << " hints left!" << endl;
             cout << "Guess word (g)\nHint (h)\nQuit game (q)\n\nEnter choice: ";
             cin >> choice;
 
             if (choice == 'h')
             {
                 classWord->show_hint();
-                game->remove_point();
+                game->remove_hint();
 
                 // If user has used up hints, game is over
-                if (game->getPoints() == 0)
+                if (game->getHintsLeft() == 0)
                 {
                     cout << "\nGame over! The word was " << classWord->get_word() << endl;
                     cout << "You managed to guess " << game->getWordsGuessed() << " word/s\n"
