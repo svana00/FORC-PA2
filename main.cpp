@@ -21,6 +21,11 @@ char *pick_word_from_list(char **wordsList)
     return wordsList[randWord];
 }
 
+bool sort_high_scores(HighScore* a, HighScore* b)
+{
+    return a->getScore() <= b->getScore();
+}
+
 int main()
 {
     // Create array
@@ -146,11 +151,6 @@ int main()
 
                 while (!highScores.eof())
                 {
-                    if (!highScores.eof())
-                    {
-                        cout << "Counter before: " << counter << endl;
-                    }
-
                     while (initials[counter - 1] != ',')
                     {
                         highScores.read(&initials[counter++], 1);
@@ -158,28 +158,34 @@ int main()
                     initials[counter - 1] = 0;
                     counter = 0;
 
-                    while (scoreArr[counter] != '\n')
+                    while (scoreArr[counter - 1] != '\n')
                     {
                         highScores.read(&scoreArr[counter++], 1);
                     }
                     counter = 0;
-                    score = atof(scoreArr);
 
+                    score = atof(scoreArr);
                     HighScore *hs;
                     hs = new HighScore(initials, score);
                     classHighscores[highScoreCounter++] = hs;
-                    delete hs;
-                    if (!highScores.eof())
-                    {
-                        cout << "Counter after: " << counter << endl;
-                    }
                 }
 
+                // for (int i = 0; i < highScoreCounter; i++)
+                // {
+                //     cout << classHighscores[i]->getScore() << endl;
+                // }
+                
+                // cout << "--------------------" << endl;
                 // Sort the list
-                // classHighscores = sort(classHighscores);
-                highScores.close();
+                sort(classHighscores, classHighscores + highScoreCounter, sort_high_scores);
+                for (int i = 0; i < highScoreCounter; i++)
+                {
+                    cout << classHighscores[i]->getScore() << endl;
+                }
+                // highScores.close();
 
-                // Delete all pointers delete[] initials;
+                // Delete all pointers 
+                delete[] initials;
                 delete[] scoreArr;
                 delete[] classHighscores;
             }
@@ -213,7 +219,7 @@ int main()
     fout.open("high_scores.txt", fstream::app);
 
     char initials[5];
-    cout << "Enter your initals to record your score: ";
+    cout << "Enter your initials to record your score: ";
     cin >> initials;
     fout << initials << ',' << game->getTotalScore() << endl;
 
