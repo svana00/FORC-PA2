@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include "word.h"
 #include "game.h"
+#include "highScore.h"
 #include <chrono>
 
 using namespace std;
