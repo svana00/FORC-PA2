@@ -33,7 +33,6 @@ int main()
     int counter = 0;
     for (int i = 0; i < numOfWords; i++)
     {
-        wordsList[i] = &charList[counter];
         fin.read(&charList[counter++], 1);
         while (charList[counter - 1] != '\n')
         {
@@ -135,6 +134,39 @@ int main()
 
             else if (choice == 's')
             {
+                int counter = 0;
+                int highScoreCounter = 0;
+                HighScore* = new HighScore[5];
+                char* initials = new char[6];
+                char* scoreArr = new char[10];
+                double score;
+                ifstream highScores;
+                highScores.open("high_scores.txt");
+
+
+                while(highScores.eof())
+                {
+                    while(initials[counter - 1] != ',')
+                    {
+                        highScores.read(&initials[counter++],1);
+                    }
+                    initials[counter - 1] = 0;
+                    counter = 0;
+
+                    while(scoreArr[counter] != '\n')
+                    {
+                        highScores.read(&score[counter++],1);
+                    }
+                    counter = 0;
+                    score = atof(scoreArr);
+
+                    HighScore* hs;
+                    hs = new HighScore(initials, score);
+                    highScores[highScoreCounter++] = hs;
+                }
+
+                highScores = sort(highScores);
+                cout << highScores << endl;
             }
 
             else if (choice == 'q')
