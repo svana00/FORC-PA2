@@ -127,7 +127,7 @@ int main()
                     auto t2 = high_resolution_clock::now();
                     auto duration = duration_cast<seconds>(t2 - t1).count();
 
-                    cout << "Time elapsed: " << duration << endl;
+                    game->addToScore((double) 200/duration);
                 }
                 else
                 {
@@ -148,14 +148,16 @@ int main()
                 cout << "Unkown command, try again!" << endl;
             }
         }
-
+        
         // Delete all pointers
         delete classWord;
         delete originalWord;
         delete scrambledWord;
         delete[] guess;
     }
+    cout << "Your total score is: " << game->getTotalScore() << endl;
 
+    delete game;
     delete[] charList;
     delete[] wordsList;
     return 0;
