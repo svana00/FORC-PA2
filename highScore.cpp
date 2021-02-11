@@ -9,13 +9,6 @@ HighScore::HighScore(char *initials, double score)
     this->score = score;
 }
 
-bool operator<(HighScore a, HighScore b)
-{
-    if (a.getScore() <= b.getScore())
-        return true;
-    return false;
-}
-
 double HighScore::getScore()
 {
     return this->score;
