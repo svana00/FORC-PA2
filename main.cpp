@@ -127,7 +127,7 @@ int main()
                     auto t2 = high_resolution_clock::now();
                     auto duration = duration_cast<seconds>(t2 - t1).count();
 
-                    game->addToScore((double) 200/duration);
+                    game->addToScore((double) duration/10);
                 }
                 else
                 {
