@@ -19,4 +19,5 @@ private:
     char *scrambled;
     char *hintWord;
     int hintCounter;
+    int hintsForWord;
 };

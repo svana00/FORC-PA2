@@ -124,7 +124,7 @@ int main()
             }
             else
             {
-                gameOver = true;
+                cout << "Unkown command, try again!" << endl;
             }
         }
 
