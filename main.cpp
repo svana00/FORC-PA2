@@ -125,9 +125,9 @@ int main()
                     game->word_guessed();
                     wordGuessed = true;
                     auto t2 = high_resolution_clock::now();
-                    auto duration = duration_cast(seconds(t2 - t1));
+                    auto duration = duration_cast<seconds>(t2 - t1).count();
 
-                    cout << "Time elapsed: " << endl;
+                    cout << "Time elapsed: " << duration << endl;
                 }
                 else
                 {
