@@ -11,7 +11,6 @@ Word::Word(char *wordList, int wordLength)
     this->scrambled = new char[wordLength];
     this->hintWord = new char[wordLength];
     this->hintCounter = 0;
-    this->hintsForWord = 0;
 
     // Fill the word and scrambled lists
     for (int i = 0; i < wordLength; i++)
@@ -55,7 +54,7 @@ void Word::show_hint()
 {
     srand(time(NULL));
 
-    if (this->hintsForWord != this->wordLength) {
+    if (this->hintCounter != this->wordLength) {
         int index = rand() % this->wordLength;
         while (this->hintWord[index] != '-')
         {
@@ -64,7 +63,6 @@ void Word::show_hint()
         }
         this->hintWord[index] = this->word[index];
         this->hintCounter++;
-        this->hintsForWord++;
     }
     else {
         cout << endl << "You have used all your hints for this word! Now you can guess it" << endl;
@@ -94,4 +92,8 @@ void Word::scramble_word()
         this->scrambled[letterOneIndex] = this->scrambled[letterTwoIndex];
         this->scrambled[letterTwoIndex] = tempChar;
     }
+}
+
+int Word::get_hint_counter() {
+    return this->hintCounter;
 }

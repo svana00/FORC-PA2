@@ -95,7 +95,7 @@ int main()
                 game->remove_point();
                 cout << "Points left: " << game->getPoints() << endl;
 
-                // If user has used up guesses, game is over
+                // If user has used up hints, game is over
                 if (game->getPoints() == 0)
                 {
                     cout << "\nGame over!" << endl;
@@ -122,6 +122,12 @@ int main()
                     cout << "Wrong guess! " << endl;
                 }
             }
+
+            else if (choice == 'q') {
+                cout << "You quit the game. The word was " << classWord->get_word() << endl;
+                gameOver = true;
+            }
+
             else
             {
                 cout << "Unkown command, try again!" << endl;
