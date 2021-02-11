@@ -3,8 +3,13 @@
 #include <stdlib.h>
 #include "word.h"
 #include "game.h"
+#include <time.h> /* clock_t, clock, CLOCKS_PER_SEC */
+#include <ctime>
+#include <ratio>
+#include <chrono>
 
 using namespace std;
+using namespace std::chrono;
 
 int maxWordLength = 20;
 int numOfWords = 25936;
@@ -78,12 +83,15 @@ int main()
         char choice;
         char *guess = new char[maxWordLength];
 
+        auto t1 = high_resolution_clock::now();
+
         while (!gameOver && game->getPoints() != 0 && !wordGuessed)
         {
             // Print inital instructions
             cout << "\nYour scrambled word: " << scrambledWord << endl;
             char *hintedWord = classWord->get_word_with_hints();
-                cout << "Word with hints: " << hintedWord << "\n" << endl;
+            cout << "Word with hints: " << hintedWord << "\n"
+                 << endl;
 
             cout << "You have " << game->getPoints() << " hints left!" << endl;
             cout << "Guess word (g)\nHint (h)\nQuit game (q)\n\nEnter choice: ";
@@ -116,6 +124,10 @@ int main()
                     cout << "You guessed correct!" << endl;
                     game->word_guessed();
                     wordGuessed = true;
+                    auto t2 = high_resolution_clock::now();
+                    auto duration = duration_cast(seconds(t2 - t1));
+
+                    cout << "Time elapsed: " << endl;
                 }
                 else
                 {
@@ -123,10 +135,11 @@ int main()
                 }
             }
 
-            else if (choice == 'q') {
+            else if (choice == 'q')
+            {
                 cout << "You quit the game. The word was " << classWord->get_word() << endl;
                 cout << "You managed to guess " << game->getWordsGuessed() << " word/s\n"
-                         << endl;
+                     << endl;
                 gameOver = true;
             }
 
