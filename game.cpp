@@ -6,12 +6,12 @@ using namespace std;
 Game::Game()
 {
     this->guessedWords = 0;
-    this->points = 10;
+    this->hints = 10;
 }
 
-int Game::getPoints()
+int Game::getHintsLeft()
 {
-    return this->points;
+    return this->hints;
 }
 
 int Game::getWordsGuessed()
@@ -19,9 +19,9 @@ int Game::getWordsGuessed()
     return this->guessedWords;
 }
 
-void Game::remove_point()
+void Game::remove_hint()
 {
-    this->points--;
+    this->hints--;
 }
 
 void Game::word_guessed()

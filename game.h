@@ -4,7 +4,7 @@ public:
     Game();
     void remove_hint();
     void word_guessed();
-    int getPoints();
+    int getHintsLeft();
     int getWordsGuessed();
 
 private:
