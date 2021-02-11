@@ -155,6 +155,7 @@ int main()
         delete scrambledWord;
         delete[] guess;
     }
+    game->addToScore(game->getWordsGuessed()*50);
     cout << "Your total score is: " << game->getTotalScore() << endl;
 
     delete game;
