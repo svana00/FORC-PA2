@@ -12,6 +12,7 @@ public:
     char *get_scrambled();
     char *get_word_with_hints();
     bool compare_guess(char *guess);
+    int get_hint_counter();
 
 private:
     int wordLength;
@@ -19,5 +20,4 @@ private:
     char *scrambled;
     char *hintWord;
     int hintCounter;
-    int hintsForWord;
 };
