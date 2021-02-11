@@ -33,6 +33,7 @@ int main()
     int counter = 0;
     for (int i = 0; i < numOfWords; i++)
     {
+        wordsList[i] = &charList[counter];
         fin.read(&charList[counter++], 1);
         while (charList[counter - 1] != '\n')
         {
@@ -136,37 +137,41 @@ int main()
             {
                 int counter = 0;
                 int highScoreCounter = 0;
-                HighScore* = new HighScore[5];
-                char* initials = new char[6];
-                char* scoreArr = new char[10];
+                HighScore **classHighscores = new HighScore *[5];
+                char *initials = new char[6];
+                char *scoreArr = new char[10];
                 double score;
                 ifstream highScores;
                 highScores.open("high_scores.txt");
 
-
-                while(highScores.eof())
+                while (highScores.eof())
                 {
-                    while(initials[counter - 1] != ',')
+                    while (initials[counter - 1] != ',')
                     {
-                        highScores.read(&initials[counter++],1);
+                        highScores.read(&initials[counter++], 1);
                     }
                     initials[counter - 1] = 0;
                     counter = 0;
 
-                    while(scoreArr[counter] != '\n')
+                    while (scoreArr[counter] != '\n')
                     {
-                        highScores.read(&score[counter++],1);
+                        highScores.read(&scoreArr[counter++], 1);
                     }
                     counter = 0;
                     score = atof(scoreArr);
 
-                    HighScore* hs;
+                    HighScore *hs;
                     hs = new HighScore(initials, score);
-                    highScores[highScoreCounter++] = hs;
+                    classHighscores[highScoreCounter++] = hs;
                 }
 
-                highScores = sort(highScores);
-                cout << highScores << endl;
+                // Sort the list
+                // classHighscores = sort(classHighscores);
+                highScores.close();
+
+                // Delete all pointers delete[] initials;
+                delete[] scoreArr;
+                delete[] classHighscores;
             }
 
             else if (choice == 'q')
@@ -183,7 +188,6 @@ int main()
             }
         }
 
-        // Delete all pointers
         delete classWord;
         delete originalWord;
         delete scrambledWord;
