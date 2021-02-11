@@ -81,26 +81,26 @@ int main()
         while (!gameOver && game->getPoints() != 0 && !wordGuessed)
         {
             // Print inital instructions
-            cout << "Your scrambled word: " << scrambledWord << "\n"
-                 << endl;
+            cout << "\nYour scrambled word: " << scrambledWord << endl;
+            char *hintedWord = classWord->get_word_with_hints();
+                cout << "Word with hints: " << hintedWord << "\n" << endl;
 
+            cout << "You have " << game->getPoints() << " hints left!" << endl;
             cout << "Guess word (g)\nHint (h)\nQuit game (q)\n\nEnter choice: ";
             cin >> choice;
 
             if (choice == 'h')
             {
                 classWord->show_hint();
-                char *hintedWord = classWord->get_word_with_hints();
-                cout << "\nWord with hints: " << hintedWord << endl;
                 game->remove_point();
-                cout << "Points left: " << game->getPoints() << endl;
 
                 // If user has used up hints, game is over
                 if (game->getPoints() == 0)
                 {
-                    cout << "\nGame over!" << endl;
+                    cout << "\nGame over! The word was " << classWord->get_word() << endl;
                     cout << "You managed to guess " << game->getWordsGuessed() << " word/s\n"
                          << endl;
+
                     gameOver = true;
                 }
             }
@@ -125,6 +125,8 @@ int main()
 
             else if (choice == 'q') {
                 cout << "You quit the game. The word was " << classWord->get_word() << endl;
+                cout << "You managed to guess " << game->getWordsGuessed() << " word/s\n"
+                         << endl;
                 gameOver = true;
             }
 
