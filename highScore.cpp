@@ -5,9 +5,6 @@ using namespace std;
 
 HighScore::HighScore(char *initials, double score)
 {
-    cout << initials << endl;
-    cout << score << endl;
-
     this->initials = initials;
     this->score = score;
 }

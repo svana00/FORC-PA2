@@ -144,8 +144,13 @@ int main()
                 ifstream highScores;
                 highScores.open("high_scores.txt");
 
-                while (highScores.eof())
+                while (!highScores.eof())
                 {
+                    if (!highScores.eof())
+                    {
+                        cout << "Counter before: " << counter << endl;
+                    }
+
                     while (initials[counter - 1] != ',')
                     {
                         highScores.read(&initials[counter++], 1);
@@ -163,6 +168,11 @@ int main()
                     HighScore *hs;
                     hs = new HighScore(initials, score);
                     classHighscores[highScoreCounter++] = hs;
+                    delete hs;
+                    if (!highScores.eof())
+                    {
+                        cout << "Counter after: " << counter << endl;
+                    }
                 }
 
                 // Sort the list
