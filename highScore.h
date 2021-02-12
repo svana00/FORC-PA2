@@ -4,11 +4,11 @@ using namespace std;
 class HighScore
 {
 public:
-    HighScore(char* initals, double score);
-    char* getInitials();
+    HighScore(char *initals, double score);
+    char *getInitials();
     double getScore();
 
 private:
-    char* initialsArr;
+    char *initialsArr;
     double score;
 };

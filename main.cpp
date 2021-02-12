@@ -21,7 +21,7 @@ char *pick_word_from_list(char **wordsList)
     return wordsList[randWord];
 }
 
-bool sort_high_scores(HighScore* a, HighScore* b)
+bool sort_high_scores(HighScore *a, HighScore *b)
 {
     return a->getScore() <= b->getScore();
 }
@@ -142,10 +142,12 @@ int main()
             {
                 int counter = 0;
                 int highScoreCounter = 0;
+                double score;
                 HighScore **classHighscores = new HighScore *[5];
                 char *initials = new char[6];
                 char *scoreArr = new char[10];
-                double score;
+
+                // Open input stream
                 ifstream highScores;
                 highScores.open("high_scores.txt");
 
@@ -168,17 +170,21 @@ int main()
                     HighScore *hs;
                     hs = new HighScore(initials, score);
                     classHighscores[highScoreCounter++] = hs;
+                    // Sort the list
+                    sort(classHighscores, classHighscores + highScoreCounter, sort_high_scores);
                 }
 
-                // Sort the list
-                sort(classHighscores, classHighscores + highScoreCounter, sort_high_scores);
+                highScores.close();
                 for (int i = 0; i < highScoreCounter; i++)
                 {
                     cout << classHighscores[i]->getScore() << endl;
                 }
-                highScores.close();
 
-                // Delete all pointers 
+                // Delete all pointers
+                for (int i = 0; i < highScoreCounter; i++)
+                {
+                    delete classHighscores[i];
+                }
                 delete[] initials;
                 delete[] scoreArr;
                 delete[] classHighscores;
@@ -196,7 +202,6 @@ int main()
             {
                 cout << "Unkown command, try again!" << endl;
             }
-
         }
 
         delete classWord;
