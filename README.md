@@ -13,5 +13,3 @@ Run the code with the command:
     ./main.exe
 
 ## Other
-Run the code with the command:
-    ./main.exe

@@ -8,10 +8,10 @@ public:
     int getWordsGuessed();
     void addToScore(double points);
     double getTotalScore();
+    void printFinalScore();
 
 private:
     int guessedWords;
     int hints;
     double totalScore;
-    
 };

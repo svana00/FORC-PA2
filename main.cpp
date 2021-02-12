@@ -236,17 +236,7 @@ int main()
 
     // Calculate and output final score
 
-    if (game->getWordsGuessed() != 0)
-    {
-        game->addToScore(game->getWordsGuessed() * 50 + game->getHintsLeft() * 3);
-        cout << "Your total score is: " << game->getTotalScore() << "\n"
-             << endl;
-    }
-    else
-    {
-        cout << "Your total score is: " << game->getTotalScore() << "\n"
-             << endl;
-    }
+    game->printFinalScore();
 
     // Add to highscores
     ofstream fout;
