@@ -23,7 +23,7 @@ char *pick_word_from_list(char **wordsList)
 
 bool sort_high_scores(HighScore *a, HighScore *b)
 {
-    return a->getScore() <= b->getScore();
+    return a->getScore() >= b->getScore();
 }
 
 int main()
@@ -143,7 +143,7 @@ int main()
                 int counter = 0;
                 int highScoreCounter = 0;
                 double score;
-                HighScore **classHighscores = new HighScore *[5];
+                HighScore **classHighscores = new HighScore *[100];
                 char *initials = new char[6];
                 char *scoreArr = new char[10];
 
@@ -151,8 +151,9 @@ int main()
                 ifstream highScores;
                 highScores.open("high_scores.txt");
 
-                while (!highScores.eof())
+                while (highScores.read(&initials[counter++], 1))
                 {
+                    // Find the initials
                     while (initials[counter - 1] != ',')
                     {
                         highScores.read(&initials[counter++], 1);
@@ -160,16 +161,18 @@ int main()
                     initials[counter - 1] = 0;
                     counter = 0;
 
+                    // Find the score
                     while (scoreArr[counter - 1] != '\n')
                     {
                         highScores.read(&scoreArr[counter++], 1);
                     }
                     counter = 0;
-
                     score = atof(scoreArr);
+
                     HighScore *hs;
                     hs = new HighScore(initials, score);
                     classHighscores[highScoreCounter++] = hs;
+
                     // Sort the list
                     sort(classHighscores, classHighscores + highScoreCounter, sort_high_scores);
                 }
@@ -185,6 +188,7 @@ int main()
                 {
                     delete classHighscores[i];
                 }
+
                 delete[] initials;
                 delete[] scoreArr;
                 delete[] classHighscores;
