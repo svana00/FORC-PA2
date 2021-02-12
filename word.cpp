@@ -38,6 +38,16 @@ char *Word::get_word_with_hints()
     return this->hintWord;
 }
 
+int Word::get_hint_counter()
+{
+    return this->hintCounter;
+}
+
+int Word::get_word_length()
+{
+    return this->wordLength;
+}
+
 bool Word::compare_guess(char *guess)
 {
     for (int i = 0; i < wordLength; i++)
@@ -54,20 +64,21 @@ void Word::show_hint()
 {
     srand(time(NULL));
 
-    if (this->hintCounter != this->wordLength) {
+    if (this->hintCounter != this->wordLength)
+    {
         int index = rand() % this->wordLength;
         while (this->hintWord[index] != '-')
         {
             index = rand() % this->wordLength;
-            
         }
         this->hintWord[index] = this->word[index];
         this->hintCounter++;
     }
-    else {
-        cout << endl << "You have used all your hints for this word! Now you can guess it" << endl;
+    else
+    {
+        cout << endl
+             << "You have used all your hints for this word! Now you can guess it" << endl;
     }
-    
 }
 
 void Word::scramble_word()
@@ -92,8 +103,4 @@ void Word::scramble_word()
         this->scrambled[letterOneIndex] = this->scrambled[letterTwoIndex];
         this->scrambled[letterTwoIndex] = tempChar;
     }
-}
-
-int Word::get_hint_counter() {
-    return this->hintCounter;
 }

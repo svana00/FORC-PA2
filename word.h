@@ -13,6 +13,7 @@ public:
     char *get_word_with_hints();
     bool compare_guess(char *guess);
     int get_hint_counter();
+    int get_word_length();
 
 private:
     int wordLength;
