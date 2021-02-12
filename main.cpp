@@ -97,26 +97,10 @@ int main()
                  << endl;
 
             cout << "You have " << game->getHintsLeft() - 1 << " hints left!" << endl;
-            cout << "Guess word (g)\nHint (h)\nSee highscores (s)\nQuit game (q)\n\nEnter choice: ";
+            cout << "\n1. Guess word\n2. Hint\n3. See highscores\n4. Quit game\n\nEnter choice: ";
             cin >> choice;
 
-            if (choice == 'h')
-            {
-                classWord->show_hint();
-                game->remove_hint();
-
-                // If user has used up hints, game is over
-                if (game->getHintsLeft() == 0)
-                {
-                    cout << "\nGame over! The word was " << classWord->get_word() << endl;
-                    cout << "You managed to guess " << game->getWordsGuessed() << " word/s\n"
-                         << endl;
-
-                    gameOver = true;
-                }
-            }
-
-            else if (choice == 'g')
+            if (choice == '1')
             {
                 cout << "Guess word: ";
                 cin >> guess;
@@ -141,7 +125,23 @@ int main()
                 }
             }
 
-            else if (choice == 's')
+            else if (choice == '2')
+            {
+                classWord->show_hint();
+                game->remove_hint();
+
+                // If user has used up hints, game is over
+                if (game->getHintsLeft() == 0)
+                {
+                    cout << "\nGame over! The word was " << classWord->get_word() << endl;
+                    cout << "You managed to guess " << game->getWordsGuessed() << " word/s\n"
+                         << endl;
+
+                    gameOver = true;
+                }
+            }
+
+            else if (choice == '3')
             {
                 int counter = 0;
                 int highScoreCounter = 0;
@@ -214,7 +214,7 @@ int main()
                 delete[] classHighscores;
             }
 
-            else if (choice == 'q')
+            else if (choice == '4')
             {
                 cout << "You quit the game. The word was " << classWord->get_word() << endl;
                 cout << "You managed to guess " << game->getWordsGuessed() << " word/s\n"
