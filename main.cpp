@@ -129,8 +129,8 @@ int main()
                     auto t2 = high_resolution_clock::now();
                     auto duration = duration_cast<seconds>(t2 - t1).count();
 
-                    game->addToScore(56 / ((double) duration) - classWord->get_hint_counter()*5);
-                    cout << "You guessed correct! It took you " << ((double) duration) << " seconds to guess this word" << endl;
+                    game->addToScore(56 / ((double)duration) - classWord->get_hint_counter() * 5);
+                    cout << "You guessed correct! It took you " << ((double)duration) << " seconds to guess this word" << endl;
                 }
                 else
                 {
@@ -178,9 +178,26 @@ int main()
                 }
 
                 highScores.close();
-                for (int i = 0; i < highScoreCounter; i++)
+
+                char choice;
+                cout << "See all highscores or top 5 (a/5)? ";
+                cin >> choice;
+
+                cout << "\n------------------- HIGHSCORES -------------------" << endl;
+
+                if (choice == 'a' || highScoreCounter < 5)
                 {
-                    cout << classHighscores[i]->getScore() << endl;
+                    for (int i = 0; i < highScoreCounter; i++)
+                    {
+                        cout << "Score " << i + 1 << ": " << classHighscores[i]->getScore() << " by " << classHighscores[i]->getInitials() << endl;
+                    }
+                }
+                else if (choice == '5')
+                {
+                    for (int i = 0; i < 5; i++)
+                    {
+                        cout << "Score " << i + 1 << ": " << classHighscores[i]->getScore() << " by " << classHighscores[i]->getInitials() << endl;
+                    }
                 }
 
                 // Delete all pointers

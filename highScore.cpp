@@ -21,6 +21,5 @@ double HighScore::getScore()
 
 char *HighScore::getInitials()
 {
-    cout << this->initialsArr << endl;
     return this->initialsArr;
 }
