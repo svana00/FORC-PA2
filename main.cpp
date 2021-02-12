@@ -122,15 +122,18 @@ int main()
                 cin >> guess;
                 cout << "\n";
 
+                // Check if word matches
                 if (classWord->compare_guess(guess))
                 {
                     game->word_guessed();
-                    wordGuessed = true;
                     auto t2 = high_resolution_clock::now();
                     auto duration = duration_cast<seconds>(t2 - t1).count();
 
-                    game->addToScore(56 / ((double)duration) - classWord->get_hint_counter() * 5);
+                    // Calculate score from time and how many hints are left
+                    game->addToScore(56 / ((double)duration));
                     cout << "You guessed correct! It took you " << ((double)duration) << " seconds to guess this word" << endl;
+
+                    wordGuessed = true;
                 }
                 else
                 {
@@ -180,19 +183,19 @@ int main()
                 highScores.close();
 
                 char choice;
-                cout << "See all highscores or top 5 (a/5)? ";
+                cout << "\n1. See all highscores\n2. See top 5\n\nEnter choice: ";
                 cin >> choice;
 
                 cout << "\n------------------- HIGHSCORES -------------------" << endl;
 
-                if (choice == 'a' || highScoreCounter < 5)
+                if (choice == '1' || highScoreCounter < 5)
                 {
                     for (int i = 0; i < highScoreCounter; i++)
                     {
                         cout << "Score " << i + 1 << ": " << classHighscores[i]->getScore() << " by " << classHighscores[i]->getInitials() << endl;
                     }
                 }
-                else if (choice == '5')
+                else if (choice == '2')
                 {
                     for (int i = 0; i < 5; i++)
                     {
@@ -231,9 +234,19 @@ int main()
         delete[] guess;
     }
 
-    game->addToScore(game->getWordsGuessed() * 50);
-    cout << "Your total score is: " << game->getTotalScore() << "\n"
-         << endl;
+    // Calculate and output final score
+
+    if (game->getWordsGuessed() != 0)
+    {
+        game->addToScore(game->getWordsGuessed() * 50 + game->getHintsLeft() * 3);
+        cout << "Your total score is: " << game->getTotalScore() << "\n"
+             << endl;
+    }
+    else
+    {
+        cout << "Your total score is: " << game->getTotalScore() << "\n"
+             << endl;
+    }
 
     // Add to highscores
     ofstream fout;
