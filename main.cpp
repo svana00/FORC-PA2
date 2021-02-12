@@ -124,13 +124,13 @@ int main()
 
                 if (classWord->compare_guess(guess))
                 {
-                    cout << "You guessed correct!" << endl;
                     game->word_guessed();
                     wordGuessed = true;
                     auto t2 = high_resolution_clock::now();
                     auto duration = duration_cast<seconds>(t2 - t1).count();
 
-                    game->addToScore((double)duration / 10);
+                    game->addToScore(56 / ((double) duration) - classWord->get_hint_counter()*5);
+                    cout << "You guessed correct! It took you " << ((double) duration) << " seconds to guess this word" << endl;
                 }
                 else
                 {
