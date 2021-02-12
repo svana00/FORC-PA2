@@ -107,14 +107,12 @@ int main()
                     game->addToScore(56 / ((double)duration));
                     cout << "You guessed correct! It took you " << ((double)duration) << " seconds to guess this word" << endl;
 
-                    // Let user press a key to keep playing
-                    char backToMenu;
-                    cout << "\nEnter any letter to continue: ";
-                    cin >> backToMenu;
+                    enterKey();
                 }
                 else
                 {
                     cout << "Wrong guess! :(" << endl;
+                    enterKey();
                 }
             }
 
@@ -200,10 +198,7 @@ int main()
                     }
                 }
 
-                // Let user press a key to keep playing
-                char backToMenu;
-                cout << "\nEnter any letter to continue: ";
-                cin >> backToMenu;
+                enterKey();
 
                 // Delete all pointers
                 for (int i = 0; i < highScoreCounter; i++)
